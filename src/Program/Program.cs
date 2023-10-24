@@ -17,8 +17,12 @@ namespace CompAndDel
             IPipe pipe1=new PipeSerial(greyscaleFilter, new PipeNull());
             IPipe pipe2=new PipeSerial(negativeFilter,new PipeNull());
 
-            IPicture image=pipe1.Send(picture);
-            IPicture finalImage=pipe2.Send(image);
+            //Parte2:Agregarle el filtro de persistencia a la imagen para q me guarda la imagen con solo 1 filtro aplicado
+            IPipe pipePersist=new PipeSerial(new FilterPersistImage("PathToSaveGrayscale.jpg"),pipe1);
+            
+            IPicture image=pipe2.Send(pipePersist.Send(picture));
+            PictureProvider pic= new PictureProvider();
+            pic.SavePicture(image, "PathToSaveFinalImage.jpg");
 
         }
     }
