@@ -18,11 +18,11 @@ namespace CompAndDel
             IPipe pipe2=new PipeSerial(negativeFilter,new PipeNull());
 
             //Parte2:Agregarle el filtro de persistencia a la imagen para q me guarda la imagen con solo 1 filtro aplicado
-            IPipe pipePersist=new PipeSerial(new FilterPersistImage("Program/beer2.jpg"),pipe1);
+            IPipe pipePersist=new PipeSerial(new FilterPersistImage(@"Program/beer2.jpg"),pipe1);
             
             IPicture image=pipe2.Send(pipePersist.Send(picture));
             PictureProvider pic= new PictureProvider();
-            pic.SavePicture(image, "Program/beerfinal.jpg");
+            pic.SavePicture(image, @"Program/beerfinal.jpg");
 
         }
     }
